@@ -1,0 +1,11 @@
+@extends('layouts.app')
+@section('title', 'Dashboard | Granja Suíno')
+@section('topbar_title', 'Dashboard')
+@section('content')
+<div class="breadcrumb">Principal</div>
+<div class="page-head"><div><div class="page-title">Dashboard</div><div class="muted">Visão geral da operação da granja</div></div><div class="actions"><a class="btn btn-primary" href="{{ route('animais.create') }}">+ Cadastrar animal</a></div></div>
+<div class="metrics" style="grid-template-columns:repeat(3,1fr)"><div class="metric"><div class="metric-val verde">2</div><div class="metric-lbl">Matrizes ativas</div></div><div class="metric"><div class="metric-val">0</div><div class="metric-lbl">Reprodutores</div></div><div class="metric"><div class="metric-val">3</div><div class="metric-lbl">Leitões ativos</div></div></div>
+<div class="card"><div class="card-header"><div class="card-icon">!</div><span class="card-title">Alertas pendentes</span></div><div class="card-body" style="text-align:center;padding:24px;color:var(--secondary);font-size:12px"><div style="font-size:28px;color:var(--green);opacity:.45;margin-bottom:6px">✓</div>Nenhum alerta pendente<a class="link" href="{{ route('alertas.index') }}" style="display:block;margin-top:9px">Acessar alertas</a></div></div>
+<div class="card"><div class="card-header"><div class="card-icon">▣</div><span class="card-title">Próximos partos previstos</span></div><div class="card-body" style="text-align:center;padding:24px;color:var(--secondary);font-size:12px"><div style="font-size:28px;color:var(--green);opacity:.45;margin-bottom:6px">◷</div>Nenhum parto previsto nos próximos 90 dias<a class="link" href="{{ route('reproducoes.index') }}" style="display:block;margin-top:9px">Consultar reproduções</a></div></div>
+<div class="card"><div class="card-header"><div class="card-icon">+</div><span class="card-title">Acesso rápido</span></div><div class="card-body"><div class="actions"><a class="btn btn-secondary" href="{{ route('pesagens.create') }}">Nova pesagem</a><a class="btn btn-secondary" href="{{ route('movimentacoes.create') }}">Registrar movimentação</a><a class="btn btn-secondary" href="{{ route('enxertos.create') }}">Registrar enxerto</a><a class="btn btn-secondary" href="{{ route('vacinas.create') }}">Cadastrar vacina</a></div></div></div>
+@endsection

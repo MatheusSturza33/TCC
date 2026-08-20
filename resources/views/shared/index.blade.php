@@ -1,0 +1,6 @@
+@extends('layouts.app')
+@section('title', $title)
+@section('content')
+<div class="page-head"><div><h1>{{ $title }}</h1><div class="muted">Cadastros e registros da operação</div></div><a class="btn btn-primary" href="{{ route($route.'.create') }}">Novo registro</a></div>
+<div class="card"><div class="table-wrap"><table class="table"><thead><tr>@foreach($columns as $column)<th>{{ $column['label'] }}</th>@endforeach<th>Ações</th></tr></thead><tbody>@forelse($items as $item)<tr>@foreach($columns as $column)<td>{{ data_get($item, $column['key']) instanceof \Carbon\CarbonInterface ? data_get($item, $column['key'])->format('d/m/Y') : (data_get($item, $column['key']) ?? '—') }}</td>@endforeach<td><div class="actions"><a class="btn btn-secondary" href="{{ route($route.'.show', $item) }}">Ver</a><a class="btn btn-secondary" href="{{ route($route.'.edit', $item) }}">Editar</a><form method="POST" action="{{ route($route.'.destroy', $item) }}" onsubmit="return confirm('Excluir este registro?')">@csrf @method('DELETE')<button class="btn btn-danger" type="submit">Excluir</button></form></div></td></tr>@empty<tr><td colspan="{{ count($columns)+1 }}" class="muted">Nenhum registro encontrado.</td></tr>@endforelse</tbody></table></div></div>
+@endsection
