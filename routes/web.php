@@ -26,6 +26,7 @@ use App\Http\Controllers\ServicoReprodutivoController;
 use App\Http\Controllers\VacinaController;
 use App\Http\Controllers\UserController;
 
+
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 });
+
 
 Route::resource(
     'servicos-reprodutivos',

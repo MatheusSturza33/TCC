@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 use App\Models\Vacina;
 use Illuminate\Http\Request;
