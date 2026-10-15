@@ -43,20 +43,14 @@ Route::resource(
     ServicoReprodutivoController::class
 );
 
-Route::resource(
-    'aplicacoes-vacina',
-    AplicacaoVacinaController::class
-);
+Route::resource('aplicacoes-vacina', AplicacaoVacinaController::class)
+    ->parameters(['aplicacoes-vacina' => 'aplicacaoVacina']);
 
-Route::resource(
-    'planos-alimentares',
-    PlanoAlimentarController::class
-);
+Route::resource('planos-alimentares', PlanoAlimentarController::class)
+    ->parameters(['planos-alimentares' => 'planoAlimentar']);
 
-Route::resource(
-    'periodos-plano',
-    PeriodoPlanoController::class
-);
+Route::resource('periodos-plano', PeriodoPlanoController::class)
+    ->parameters(['periodos-plano' => 'periodoPlano']);
 
 Route::resource(
     'matriz-plano',
@@ -71,7 +65,8 @@ Route::resource(
 Route::resource('animais', AnimalController::class);
 Route::resource('racas', RacaController::class);
 Route::resource('animal-racas', AnimalRacaController::class);
-Route::resource('localizacoes', LocalizacaoController::class);
+Route::resource('localizacoes', LocalizacaoController::class)
+    ->parameters(['localizacoes' => 'localizacao']);
 Route::resource('movimentacoes', MovimentacaoController::class);
 Route::resource('destinos', DestinoController::class);
 Route::resource('grupos-monta', GrupoMontaController::class);

@@ -56,3 +56,31 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Instalação local do sistema
+
+Depois de extrair o projeto, execute na raiz da aplicação:
+
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve
+```
+
+O comando `php artisan key:generate` é obrigatório. Sem ele, o Laravel apresenta `MissingAppKeyException`.
+
+A migration cria automaticamente um usuário administrador para testes:
+
+- **Matrícula:** `ADMIN001`
+- **Senha:** `password`
+
+Altere essa senha antes de utilizar o sistema em produção.
+
+Para recriar o banco e o usuário de teste do zero:
+
+```bash
+php artisan migrate:fresh --seed
+```

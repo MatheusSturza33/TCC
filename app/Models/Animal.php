@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Animal extends Model
 {
@@ -23,6 +23,8 @@ class Animal extends Model
         'situacao',
         'estado_reprodutivo',
         'data_nascimento',
+        'pai_nome',
+        'mae_nome',
         'id_pai',
         'id_mae',
         'id_localizacao_atual',

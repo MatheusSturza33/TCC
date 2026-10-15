@@ -27,13 +27,18 @@
         <a class="nav-item {{ request()->routeIs('pesagens.*') ? 'active' : '' }}" href="{{ route('pesagens.index') }}"><span class="nav-icon">▱</span>Pesagens</a>
         <div class="nav-section">Sanitário</div>
         <a class="nav-item {{ request()->routeIs('vacinas.*') ? 'active' : '' }}" href="{{ route('vacinas.index') }}"><span class="nav-icon">✓</span>Vacinas</a>
+        <a class="nav-item {{ request()->routeIs('aplicacoes-vacina.*') ? 'active' : '' }}" href="{{ route('aplicacoes-vacina.index') }}"><span class="nav-icon">+ </span>Aplicações</a>
+        <div class="nav-section">Alimentação</div>
+        <a class="nav-item {{ request()->routeIs('planos-alimentares.*') ? 'active' : '' }}" href="{{ route('planos-alimentares.index') }}"><span class="nav-icon">▤</span>Fichas alimentares</a>
+        <a class="nav-item {{ request()->routeIs('periodos-plano.*') ? 'active' : '' }}" href="{{ route('periodos-plano.index') }}"><span class="nav-icon">◷</span>Módulos alimentares</a>
+        <a class="nav-item {{ request()->routeIs('matriz-plano.*') ? 'active' : '' }}" href="{{ route('matriz-plano.index') }}"><span class="nav-icon">≡</span>Fichas atribuídas</a>
         <div class="nav-section">Administração</div>
         <a class="nav-item" href="{{ route('users.index') }}"><span class="nav-icon">♙</span>Usuários</a>
         <div class="sidebar-footer"><form method="POST" action="{{ route('logout') }}">@csrf<button class="btn btn-secondary" style="width:100%" type="submit">Sair do sistema</button></form></div>
     </aside>
     <div class="main">
         <div class="topbar"><span class="topbar-title">@yield('topbar_title', 'Dashboard')</span><div class="user-chip"><span class="avatar">{{ strtoupper(substr(auth()->user()->name ?? 'AD',0,2)) }}</span><span>{{ auth()->user()->name ?? 'Administrador' }}</span></div></div>
-        <main class="content">@if(session('success'))<div class="alert">{{ session('success') }}</div>@endif @if($errors->any())<div class="alert" style="background:#fdecea;color:#c94543">Verifique os campos destacados.</div>@endif @yield('content')</main>
+        <main class="content">@if(session('success'))<div class="alert">{{ session('success') }}</div>@endif @if(session('error'))<div class="alert" style="background:#fdecea;color:#c94543">{{ session('error') }}</div>@endif @if(($errors ?? new \Illuminate\Support\MessageBag())->any())<div class="alert" style="background:#fdecea;color:#c94543">Verifique os campos destacados.</div>@endif @yield('content')</main>
     </div>
 </div>
 </body>
