@@ -1,1 +1,10 @@
-@include('shared.form')
+@extends('layouts.app')
+@section('title', $title)
+@section('topbar_title', 'Cadastro de movimentação')
+@section('content')
+@php $errorBag=$errors??new \Illuminate\Support\MessageBag(); $animal=old('animal_id',$item->animal_id??''); $destino=old('localizacao_destino_id',$item->localizacao_destino_id??''); $data=old('data',$item?->data?->format('Y-m-d')??''); $evento=old('evento_origem',$item->evento_origem??''); @endphp
+<div class="page-head"><div><h1>{{ $title }}</h1><div class="muted">Registre a movimentação de um animal para outra localização.</div></div><a class="btn btn-secondary" href="{{ route('movimentacoes.index') }}">Voltar</a></div>
+<div class="card"><form method="POST" action="{{ $action }}">@csrf @if($method==='PUT') @method('PUT') @endif
+<div class="form-grid"><div class="field"><label for="animal_id">ID do animal *</label><input id="animal_id" type="number" name="animal_id" value="{{ $animal }}" min="1" required>@if($errorBag->has('animal_id'))<span class="error">{{ $errorBag->first('animal_id') }}</span>@endif</div><div class="field"><label for="localizacao_destino_id">ID da localização destino *</label><input id="localizacao_destino_id" type="number" name="localizacao_destino_id" value="{{ $destino }}" min="1" required>@if($errorBag->has('localizacao_destino_id'))<span class="error">{{ $errorBag->first('localizacao_destino_id') }}</span>@endif</div><div class="field"><label for="data">Data *</label><input id="data" type="date" name="data" value="{{ $data }}" required>@if($errorBag->has('data'))<span class="error">{{ $errorBag->first('data') }}</span>@endif</div><div class="field full"><label for="evento_origem">Evento de origem</label><textarea id="evento_origem" name="evento_origem" maxlength="1000">{{ $evento }}</textarea>@if($errorBag->has('evento_origem'))<span class="error">{{ $errorBag->first('evento_origem') }}</span>@endif</div></div>
+<div class="form-actions"><button class="btn btn-primary" type="submit">Salvar movimentação</button><a class="btn btn-secondary" href="{{ route('movimentacoes.index') }}">Cancelar</a></div></form></div>
+@endsection

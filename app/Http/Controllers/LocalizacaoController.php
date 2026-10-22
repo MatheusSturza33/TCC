@@ -95,6 +95,7 @@ class LocalizacaoController extends Controller
                 'creche' => 'Creche',
                 'terminacao' => 'Terminação',
                 'quarentena' => 'Quarentena',
+                'outro' => 'Outro',
             ]],
             ['name' => 'capacidade', 'label' => 'Capacidade de animais', 'type' => 'number', 'required' => false],
         ];
@@ -119,7 +120,7 @@ class LocalizacaoController extends Controller
                 'max:255',
                 Rule::unique('localizacoes', 'nome')->ignore($localizacao),
             ],
-            'tipo' => ['required', Rule::in(['maternidade', 'gestacao', 'creche', 'terminacao', 'quarentena'])],
+            'tipo' => ['required', Rule::in(['maternidade', 'gestacao', 'creche', 'terminacao', 'quarentena', 'outro'])],
             'capacidade' => 'nullable|integer|min:1|max:100000',
         ];
     }

@@ -70,7 +70,12 @@ Route::resource('localizacoes', LocalizacaoController::class)
 Route::resource('movimentacoes', MovimentacaoController::class);
 Route::resource('destinos', DestinoController::class);
 Route::resource('grupos-monta', GrupoMontaController::class);
-Route::resource('reproducoes', ReproducaoController::class);
+Route::post('reproducoes/{reproducao}/confirmar', [ReproducaoController::class, 'confirmar'])
+    ->name('reproducoes.confirmar');
+Route::post('reproducoes/{reproducao}/cancelar', [ReproducaoController::class, 'cancelar'])
+    ->name('reproducoes.cancelar');
+Route::resource('reproducoes', ReproducaoController::class)
+    ->parameters(['reproducoes' => 'reproducao']);
 Route::resource('partos', PartoController::class);
 Route::resource('animal-partos', AnimalPartoController::class);
 Route::resource('enxertos', EnxertoController::class);
