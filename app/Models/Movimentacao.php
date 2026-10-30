@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Movimentacao extends Model
 {
@@ -17,7 +17,10 @@ class Movimentacao extends Model
         'animal_id',
         'localizacao_destino_id',
         'data',
+        'tipo_movimentacao',
+        'lote_identificacao',
         'evento_origem',
+        'usuario_id',
     ];
 
     protected $casts = [
@@ -31,9 +34,11 @@ class Movimentacao extends Model
 
     public function localizacaoDestino()
     {
-        return $this->belongsTo(
-            Localizacao::class,
-            'localizacao_destino_id'
-        );
+        return $this->belongsTo(Localizacao::class, 'localizacao_destino_id');
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'usuario_id');
     }
 }

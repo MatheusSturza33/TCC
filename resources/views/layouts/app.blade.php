@@ -19,6 +19,7 @@
         <a class="nav-item {{ request()->routeIs('animais.*') ? 'active' : '' }}" href="{{ route('animais.index') }}"><span class="nav-icon">●</span>Animais</a>
         <a class="nav-item {{ request()->routeIs('racas.*') ? 'active' : '' }}" href="{{ route('racas.index') }}"><span class="nav-icon">◇</span>Raças</a>
         <a class="nav-item" href="{{ route('localizacoes.index') }}"><span class="nav-icon">⌖</span>Localização</a>
+        <a class="nav-item {{ request()->routeIs('movimentacoes.*') ? 'active' : '' }}" href="{{ route('movimentacoes.index') }}"><span class="nav-icon">⇄</span>Movimentações</a>
         <div class="nav-section">Reprodução</div>
         <a class="nav-item" href="{{ route('grupos-monta.index') }}"><span class="nav-icon">♧</span>Grupos de monta</a>
         <a class="nav-item {{ request()->routeIs('reproducoes.*') ? 'active' : '' }}" href="{{ route('reproducoes.index') }}"><span class="nav-icon">♥</span>Reprodução</a>

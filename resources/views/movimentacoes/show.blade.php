@@ -1,1 +1,7 @@
-@include('shared.show')
+@extends('layouts.app')
+@section('title', $title)
+@section('topbar_title', 'Detalhes da movimentação')
+@section('content')
+<div class="page-head"><div><h1>Movimentação #{{ $item->id }}</h1><div class="muted">Registro da transferência do animal.</div></div><a class="btn btn-secondary" href="{{ route('movimentacoes.index') }}">Voltar</a></div>
+<div class="card"><div class="detail-grid"><div class="detail"><strong>Animal</strong><span>#{{ $item->animal_id }} — {{ $item->animal?->tatuagem ?: 'Sem tatuagem' }}</span></div><div class="detail"><strong>Tipo</strong><span>{{ $item->tipo_movimentacao === 'lote' ? 'Lote' : 'Individual' }}</span></div><div class="detail"><strong>Identificação do lote</strong><span>{{ $item->lote_identificacao ?: 'Não informado' }}</span></div><div class="detail"><strong>Destino</strong><span>{{ $item->localizacaoDestino?->nome ?: 'Não informado' }}</span></div><div class="detail"><strong>Tipo do local</strong><span>{{ $item->localizacaoDestino?->tipo ? ucfirst($item->localizacaoDestino->tipo) : 'Não informado' }}</span></div><div class="detail"><strong>Data</strong><span>{{ $item->data?->format('d/m/Y') }}</span></div><div class="detail"><strong>Etapa</strong><span>{{ ['desmame' => 'Desmame', 'descreche' => 'Descreche', 'terminacao' => 'Terminação', 'transferencia' => 'Transferência', 'outro' => 'Outro'][$item->evento_origem] ?? $item->evento_origem }}</span></div><div class="detail"><strong>Usuário</strong><span>{{ $item->usuario?->name ?: 'Não informado' }}</span></div></div></div>
+@endsection
