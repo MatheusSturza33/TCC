@@ -78,7 +78,8 @@ Route::middleware('auth')->group(function () {
         ->name('reproducoes.cancelar');
     Route::resource('reproducoes', ReproducaoController::class)
         ->parameters(['reproducoes' => 'reproducao']);
-    Route::resource('partos', PartoController::class);
+    Route::resource('partos', PartoController::class)
+        ->only(['index', 'create', 'store', 'show']);
     Route::resource('animal-partos', AnimalPartoController::class);
     Route::resource('enxertos', EnxertoController::class)
         ->only(['index', 'create', 'store', 'show']);

@@ -17,6 +17,7 @@ class Parto extends Model
         'reproducao_id',
         'matriz_id',
         'dt_inicio',
+        'total_nascidos',
         'tipo',
         'total_vivos',
         'total_natimortos',
@@ -26,6 +27,10 @@ class Parto extends Model
 
     protected $casts = [
         'dt_inicio' => 'datetime',
+        'total_nascidos' => 'integer',
+        'total_vivos' => 'integer',
+        'total_natimortos' => 'integer',
+        'total_mumificados' => 'integer',
     ];
 
     public function matriz()
@@ -40,6 +45,6 @@ class Parto extends Model
             'animal_parto',
             'parto_id',
             'animal_id'
-        )->withPivot(['hora_nascimento', 'situacao_ao_nascer']);
+        )->withPivot(['hora_nascimento', 'peso_kg', 'situacao_ao_nascer']);
     }
 }
