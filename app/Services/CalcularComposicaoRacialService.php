@@ -3,65 +3,49 @@
 namespace App\Services;
 
 use App\Models\Animal;
-use App\Models\AnimalRaca;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 
 class CalcularComposicaoRacialService
 {
-    public function sincronizar(Animal $animal): void
+    public function sincronizar(Animal $animal): bool
     {
-        if (! $this->deveCalcular($animal)) {
-            return;
-        }
+        $animal->loadMissing(['mae.racas', 'pai.racas']);
 
-        $animal->loadMissing([
-            'mae.racas',
-            'pai.racas',
-        ]);
+        $composicao = [];
 
-        $composicao = $this->calcular($animal);
-        $total = round($composicao->sum(), 2);
-
-        if (abs($total - 100) > 0.01) {
-            throw ValidationException::withMessages([
-                'id_pai' => 'A composição racial dos pais deve totalizar 100%.',
-            ]);
-        }
-
-        DB::transaction(function () use ($animal, $composicao): void {
-            AnimalRaca::where('animal_id', $animal->id)->delete();
-
-            foreach ($composicao as $racaId => $percentual) {
-                AnimalRaca::create([
-                    'animal_id' => $animal->id,
-                    'raca_id' => $racaId,
-                    'percentual' => round($percentual, 2),
-                ]);
+        foreach ([$animal->mae, $animal->pai] as $parent) {
+            if (! $parent || $parent->racas->isEmpty()) {
+                return false;
             }
-        });
-    }
 
-    private function deveCalcular(Animal $animal): bool
-    {
-        return $animal->tipo === 'leitao'
-            && filled($animal->id_pai)
-            && filled($animal->id_mae);
-    }
+            foreach ($parent->racas as $raca) {
+                $composicao[$raca->id] = ($composicao[$raca->id] ?? 0) + ((float) $raca->pivot->percentual / 2);
+            }
+        }
 
-    private function calcular(Animal $animal): Collection
-    {
-        return collect([
-            $animal->mae->racas,
-            $animal->pai->racas,
-        ])
-            ->flatten()
-            ->groupBy('pivot.raca_id')
-            ->map(function (Collection $racas): float {
-                return $racas->sum(function ($raca): float {
-                    return (float) $raca->pivot->percentual / 2;
-                });
-            });
+        if ($composicao === []) {
+            return false;
+        }
+
+        $composicao = collect($composicao)
+            ->map(fn (float $percentual): float => round($percentual, 2))
+            ->filter(fn (float $percentual): bool => $percentual > 0)
+            ->all();
+
+        $diferenca = round(100 - array_sum($composicao), 2);
+        if ($diferenca !== 0.0) {
+            $racaComMaiorPercentual = collect($composicao)->sortDesc()->keys()->first();
+            $composicao[$racaComMaiorPercentual] = round(
+                $composicao[$racaComMaiorPercentual] + $diferenca,
+                2
+            );
+        }
+
+        $animal->racas()->sync(
+            collect($composicao)->mapWithKeys(fn (float $percentual, int|string $racaId): array => [
+                $racaId => ['percentual' => $percentual],
+            ])->all()
+        );
+
+        return true;
     }
 }

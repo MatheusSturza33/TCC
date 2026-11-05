@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Raca extends Model
 {
@@ -26,10 +26,5 @@ class Raca extends Model
             'raca_id',
             'animal_id'
         )->withPivot('percentual');
-    }
-
-    public function animaisRaca()
-    {
-        return $this->hasMany(AnimalRaca::class, 'raca_id');
     }
 }
